@@ -3,7 +3,50 @@
 
 #include<iomanip>
 
+Statistics::Statistics(){
+    gamesPlayed_ = 0;
+}
 
+int Statistics::addPlayer(const Player& player){
+    if (findPlayer(player.getName()) != -1){
+        throw DuplicatePlayerError(player.getName());
+    }
+
+    players_.push_back(player);
+    return (int)players_.size() - 1;
+}
+
+int Statistics::findPlayer(const std::string& name) const{
+    Player probe(name);
+
+    for (int i = 0; i < (int)players_.size(); ++i){
+        if (players_[i] == probe){   // Player::operator==
+            return i;
+        }
+    }
+    return -1;
+}
+
+
+int Statistics::getGamesPlayed() const{
+    return gamesPlayed_;
+}
+
+const Player& Statistics::getPlayer(int index) const{
+    return players_[index];
+}
+
+void Statistics::recordWin(int winner, int loser){
+    players_[winner].addWin();
+    players_[loser].addLoss();
+    ++gamesPlayed_;
+}
+
+void Statistics::recordDraw(int first, int second){
+    players_[first].addDraw();
+    players_[second].addDraw();
+    ++gamesPlayed_;
+}
 
 
 

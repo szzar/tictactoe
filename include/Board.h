@@ -1,6 +1,7 @@
 #pragma once
 
 #include<string>
+#include<iostream>
 
 class Board{
     private:
@@ -9,13 +10,13 @@ class Board{
 
     public:
         Board(int size);
-        virtual ~Board();
+        virtual ~Board(){};
 
         int getSize() const;
         char getCell(int row, int column) const; // wspolrzedna kratki (row column)
-
-        bool isFull();
-        bool isWinningMove();
+        
+        bool isFull() const;
+        bool isWinningMove(int row, int column) const;
 
         void placeMark(int row, int column, char symbol);
         void removeMark(int row, int column); // undo action
