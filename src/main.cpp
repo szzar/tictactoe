@@ -7,14 +7,14 @@
 #include "Player.h"
 #include "Statistics.h"
 
-void printIntro() {
+void printIntro(){
     std::cout << "\n";
     std::cout << "===========================================\n";
     std::cout << "                TIC TAC TOE\n";
     std::cout << "===========================================\n\n";
 }
 
-void printWin(const std::string& name) {
+void printWin(const std::string& name){
     std::cout << "\n===========================================\n";
     std::cout << " :D :D :D :D :D :D :D :D :D :D :D :D :D :D\n";
     std::cout << "        CONGRATS " << name << "! EPIC WIN\n";
@@ -22,7 +22,7 @@ void printWin(const std::string& name) {
     std::cout << "===========================================\n";
 }
 
-void printLoss(const std::string& name) {
+void printLoss(const std::string& name){
     std::cout << "\n===========================================\n";
     std::cout << " :( :( :( :( :( :( :( :( :( :( :( :( :( :(\n";
     std::cout << "        WOMP WOMP " << name << "... BIG LOSS\n";
@@ -30,7 +30,7 @@ void printLoss(const std::string& name) {
     std::cout << "===========================================\n";
 }
 
-void printDraw() {
+void printDraw(){
     std::cout << "\n===========================================\n";
     std::cout << " :| :| :| :| :| :| :| :| :| :| :| :| :| :|\n";
     std::cout << "          IT'S A DRAW... NOBODY WINS\n";
@@ -39,7 +39,7 @@ void printDraw() {
 }
 
 // getline bcs reads the whole line
-std::string readName(const std::string& prompt) {
+std::string readName(const std::string& prompt){
     std::string name;
 
     while (true) {
@@ -55,11 +55,11 @@ std::string readName(const std::string& prompt) {
 }
 
 
-int readInt(const std::string& prompt) {
+int readInt(const std::string& prompt){
     int value = 0;
 
     std::cout << prompt;
-    while (!(std::cin >> value)) {
+    while (!(std::cin >> value)){
         if (std::cin.eof()) {
             return -1;
         }
@@ -71,78 +71,78 @@ int readInt(const std::string& prompt) {
     return value;
 }
 
-int registerPlayer(Statistics& stats, const std::string& prompt) {
+int registerPlayer(Statistics& stats, const std::string& prompt){
     Player player;
 
-    while (true) {
+    while (true){
         std::string name = readName(prompt);
         if (name.empty()) {
             return -1;
         }
 
         player.setName(name);
-        try {
+        try{
             return stats.addPlayer(player);
-        } catch (DuplicatePlayerError& error) {
+        } catch (DuplicatePlayerError& error){
             std::cout << error.what() << "\n";
         }
     }
 }
 
-Board* chooseBoard() {
-    while (true) {
+Board* chooseBoard(){
+    while (true){
         std::cout << "\nCHOOSE YOUR BOARD:\n";
         std::cout << "  1) 3x3 - three in a row\n";
         std::cout << "  2) 5x5 - four in a row\n";
         std::cout << "  3) custom size (3-9)\n";
 
         int choice = readInt("CHOICE: ");
-        if (choice == -1) {
+        if (choice == -1){
             return nullptr; // nullptr so that pointer doesn't point to nothing
         }
-        if (choice == 1) {
+        if (choice == 1){
             return new Board3x3();
         }
-        if (choice == 2) {
+        if (choice == 2){
             return new Board5x5();
         }
-        if (choice == 3) {
+        if (choice == 3){
             int size = readInt("BOARD SIZE (3-9): ");
-            if (size == -1) {
+            if (size == -1){
                 return nullptr;
             }
-            try {
+            try{
                 return new BoardCustom(size);
-            } catch (InvalidBoardSizeError& error) {
+            } catch (InvalidBoardSizeError& error){
                 std::cout << error.what() << "\n";
             }
-        } else {
+        } else{
             std::cout << "PICK 1, 2 OR 3.\n";
         }
     }
 }
 
-bool playAgain() {
+bool playAgain(){
     std::string answer;
 
     std::cout << "\nKEEP PLAYING? [Y/N] ";
-    if (!std::getline(std::cin, answer)) {
+    if (!std::getline(std::cin, answer)){
         return false;
     }
     return answer == "y" || answer == "Y" || answer == "yes" || answer == "YES";
 }
 
-int main() {
+int main(){
     printIntro();
 
     Statistics stats;
 
     int index1 = registerPlayer(stats, "PLAYER 1: ");
-    if (index1 == -1) {
+    if (index1 == -1){
         return 0;
     }
     int index2 = registerPlayer(stats, "PLAYER 2: ");
-    if (index2 == -1) {
+    if (index2 == -1){
         return 0;
     }
 
@@ -153,7 +153,7 @@ int main() {
 
     bool swap = false;
 
-    while (true) {
+    while (true){
         int starterIndex = swap ? index2 : index1;
         int otherIndex = swap ? index1 : index2;
 
@@ -163,26 +163,26 @@ int main() {
                         stats.getPlayer(otherIndex).getName());
         Result result = game.play();
 
-        if (result == QUIT) {
+        if (result == QUIT){
             break;
         }
 
-        if (result == PLAYER_ONE_WINS) {
+        if (result == PLAYER_ONE_WINS){
             stats.recordWin(starterIndex, otherIndex);
             printWin(stats.getPlayer(starterIndex).getName());
             printLoss(stats.getPlayer(otherIndex).getName());
-        } else if (result == PLAYER_TWO_WINS) {
+        } else if (result == PLAYER_TWO_WINS){
             stats.recordWin(otherIndex, starterIndex);
             printWin(stats.getPlayer(otherIndex).getName());
             printLoss(stats.getPlayer(starterIndex).getName());
-        } else {
+        } else{
             stats.recordDraw(starterIndex, otherIndex);
             printDraw();
         }
 
         std::cout << stats;   // operator<<
 
-        if (!playAgain()) {
+        if (!playAgain()){
             break;
         }
         swap = !swap;
