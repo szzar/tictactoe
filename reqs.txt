@@ -1,5 +1,5 @@
 Podstawowe mechanizmy programowania obiektowego
-1. Minimum 3 klasy posiadające atrybuty i metody.
+1. Minimum 3 klasy posiadające atrybuty i metody. ==> done
 2. Zastosowanie modyfikatorów dostępu private i public / konstruktorów domyślnych i parametrycznych. ==> practically every class
 3. Zastosowanie enkapsulacji (metody dostępowe i modyfikujące, np. gettery i settery). ==> Board and Player class
 4. Implementacja podstawowych operacji na obiektach (np. dodawanie, usuwanie, wyszukiwanie,
@@ -9,9 +9,9 @@ modyfikacja). ==> Statistics class
 
 Dziedziczenie i polimorfizm. Wszystkie wcześniejsze wymagania oraz:
 1. Zastosowanie dziedziczenia – minimum jedna klasa bazowa i dwie klasy pochodne. ==> Boards
-2. Zastosowanie konstruktorów klas pochodnych. 
-3. Wykorzystanie metod wirtualnych (virtual) oraz ich przesłaniania (override).
-4. Zastosowanie polimorfizmu w działaniu programu.
+2. Zastosowanie konstruktorów klas pochodnych. -> np. Board3x3: Board(5)
+3. Wykorzystanie metod wirtualnych (virtual) oraz ich przesłaniania (override). -> getName and getWinLength
+4. Zastosowanie polimorfizmu w działaniu programu. ==> Board -> Board3x3 -> Board5x5 -> Custom
 5. Wykorzystanie metod oznaczonych const, tam gdzie jest to uzasadnione. ==> done for read only methods
 6. Schemat klas UML przedstawiający wszystkie klasy, ich atrybuty, metody oraz relacje między nimi (w
 tym dziedziczenie, kompozycję i agregację, jeśli występują).

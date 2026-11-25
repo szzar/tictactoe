@@ -24,7 +24,7 @@ class Player{
         void addLoss();
         void addDraw();
 
-        // Statistics::findPlayer uses this to search the scoreboard.
+        // statistics::findPlayer uses this to search the scoreboard vvv
         bool operator==(const Player& other) const; // true when both objects describe the same player
         //
 

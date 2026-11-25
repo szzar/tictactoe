@@ -9,7 +9,6 @@ enum Result {PLAYER_ONE_WINS, PLAYER_TWO_WINS, DRAW, QUIT}; // match end results
 class GameMaster {
 public:
     GameMaster(Board* board, const std::string& playerOne, const std::string& playerTwo);
-
     Result play();
 
 private:
@@ -19,7 +18,7 @@ private:
     Board* board_;
     std::string playerOne_;
     std::string playerTwo_;
-    int current_; // 0 = player one, 1 = player two
-    // facilitates swapping turns so that throughout a session not only one player is always starting
+    int current_; // 0 player one's turn, 1 player two's turn; flipped after every move
 };
 
+// gamemaster is not for keeping scores (pure logika gry), score is in statistics

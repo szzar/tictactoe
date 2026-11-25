@@ -98,7 +98,7 @@ Board* chooseBoard(){
 
         int choice = readInt("CHOICE: ");
         if (choice == -1){
-            return nullptr; // nullptr so that pointer doesn't point to nothing
+            return nullptr; // no board: the input ended, so main stops
         }
         if (choice == 1){
             return new Board3x3();
@@ -114,7 +114,7 @@ Board* chooseBoard(){
             try{
                 return new BoardCustom(size);
             } catch (InvalidBoardSizeError& error){
-                std::cout << error.what() << "\n";
+                std::cout << error.what() << "\n"; //.what() is for getting the string identifying exceptions
             }
         } else{
             std::cout << "PICK 1, 2 OR 3.\n";
@@ -135,7 +135,7 @@ bool playAgain(){
 int main(){
     printIntro();
 
-    Statistics stats;
+    Statistics stats; // default constructor: empty scoreboard and 0 games
 
     int index1 = registerPlayer(stats, "PLAYER 1: ");
     if (index1 == -1){
@@ -154,20 +154,19 @@ int main(){
     bool swap = false;
 
     while (true){
-        int starterIndex = swap ? index2 : index1;
-        int otherIndex = swap ? index1 : index2;
+        int starterIndex = swap ? index2 : index1; //
+        int otherIndex = swap ? index1 : index2; // decide who is X this match
 
         board->clear();   // remove the marks from the previous match
 
-        GameMaster game(board, stats.getPlayer(starterIndex).getName(),
-                        stats.getPlayer(otherIndex).getName());
+        GameMaster game(board, stats.getPlayer(starterIndex).getName(),stats.getPlayer(otherIndex).getName());
         Result result = game.play();
 
         if (result == QUIT){
             break;
         }
 
-        if (result == PLAYER_ONE_WINS){
+        if (result == PLAYER_ONE_WINS){ // depending on who wins, correct printing order
             stats.recordWin(starterIndex, otherIndex);
             printWin(stats.getPlayer(starterIndex).getName());
             printLoss(stats.getPlayer(otherIndex).getName());

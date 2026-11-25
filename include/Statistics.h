@@ -10,7 +10,7 @@
 
 class Statistics{
     private:
-        std::vector<Player> players_;
+        std::vector<Player> players_; // for indexing (easy player-getting)
         int gamesPlayed_;
 
     public:

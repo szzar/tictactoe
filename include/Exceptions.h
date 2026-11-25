@@ -11,7 +11,7 @@ class GameError: public std::runtime_error{
 class OutofBoundsError: public GameError{
     public:
         OutofBoundsError(int row, int column, int size): GameError("OUT OF BOUNDS: (" + std::to_string(row) + ", " + std::to_string(column) +") is not on a " + std::to_string(size) + "x" + std::to_string(size) + " board."){};
-}; // to_string spaces and chars otherwise errors
+}; // to_string converts the numbers to string ("str" + int does not compil because of params std::runtime accepts)
 
 class OccupiedCellError: public GameError{
     public:
@@ -28,3 +28,5 @@ class DuplicatePlayerError: public GameError {
     public:
         DuplicatePlayerError(const std::string& name): GameError("NAME TAKEN: " + name + " is already playing."){};
 };
+
+//std::runtime_error  stores a message and hands it back through what(). what() isused to get string identifying the exception

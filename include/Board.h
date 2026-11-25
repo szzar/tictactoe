@@ -6,7 +6,7 @@
 class Board{
     private:
         int size_;
-        char cells_[9][9];
+        char cells_[9][9]; // 9x9 is the largest board allowed. char for holding #/x/o
 
     public:
         Board(int size);
@@ -19,7 +19,7 @@ class Board{
         bool isWinningMove(int row, int column) const;
 
         void placeMark(int row, int column, char symbol);
-        void removeMark(int row, int column); // undo action
+        void removeMark(int row, int column); // clears one cell (used by clear())
         void clear(); 
         void print() const;
 

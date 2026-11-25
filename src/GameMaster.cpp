@@ -18,6 +18,7 @@ Result GameMaster::play(){
                   << " IN A ROW\n\n";
         board_->print();
         std::cout << "\nROW AND COLUMN: ";
+        // basically does the NAME MOVES (x/o), BOARD: NxN - Y in a row and asks for coords
 
         int row = 0;
         int column = 0;
@@ -25,7 +26,7 @@ Result GameMaster::play(){
         if (!(std::cin >> row >> column)){
             if (std::cin.eof()){
                 std::cout << "\nINPUT CLOSED.\n";
-                return QUIT;
+                return QUIT; // end of input (Ctrl-D or closed stream)
             }
             std::cin.clear();
             std::cin.ignore(1000, '\n');
@@ -35,10 +36,10 @@ Result GameMaster::play(){
         std::cin.ignore(1000, '\n');
 
         try {
-            board_->placeMark(row, column, currentSymbol());
+            board_->placeMark(row, column, currentSymbol()); // placeMark throws so nothing is written!
         } catch (GameError& error){
             std::cout << error.what() << "\n";
-            continue;   // the same player tries again
+            continue;   // error when placing a mark, e.g. trying to place out of bounds; player tries again
         }
 
         if (board_->isWinningMove(row, column)){
