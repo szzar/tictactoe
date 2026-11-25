@@ -20,5 +20,6 @@ private:
     std::string playerOne_;
     std::string playerTwo_;
     int current_; // 0 = player one, 1 = player two
+    // facilitates swapping turns so that throughout a session not only one player is always starting
 };
 
